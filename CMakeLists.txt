@@ -4,7 +4,7 @@ project(orbslam3)
 # You should set the PYTHONPATH to your own python site-packages path
 set(ENV{PYTHONPATH} "/opt/ros/humble/lib/python3.10/site-packages/")
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/CMakeModules)
-set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH} home/${USER}/thirdparty/install; /opt/ros/humble")
+set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH} home/${USER}/thirdparty/ORB_SLAM3/install; /opt/ros/humble")
 
 
 # Default to C++14
