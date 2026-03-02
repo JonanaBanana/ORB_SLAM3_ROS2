@@ -6,6 +6,9 @@ set(ENV{PYTHONPATH} "/opt/ros/humble/lib/python3.10/site-packages/")
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/CMakeModules)
 set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH} /thirdparty/ORB_SLAM3/install; /opt/ros/humble")
 
+set(ORBSLAM3_VIZ 0 CACHE STRING "0 to disable visualization, 1 to enable Pangoling visualizer for ORBSLAM3 ROS2")
+add_definitions(-DORBSLAM3_VIZ=${ORBSLAM3_VIZ})
+
 
 # Default to C++14
 if(NOT CMAKE_CXX_STANDARD)
