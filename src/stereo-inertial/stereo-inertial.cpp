@@ -8,14 +8,6 @@
 
 #include "System.h"
 
-#ifdef ORBSLAM3_VIZ
-static constexpr int orbslam3_viz_ = ORBSLAM3_VIZ;
-std::cout << "\nORBSLAM3_ROS2 VISUALIZATION: "<< orbslam3_viz_ << std::endl;
-#else
-static constexpr int orbslam3_viz_ = 0; // By default, visualization is off.
-std::cout << "\nORBSLAM3_ROS2 VISUALIZATION OFF BY DEFAULT" << std::endl;
-#endif
-
 int main(int argc, char **argv)
 {
     if(argc < 4)
@@ -34,15 +26,7 @@ int main(int argc, char **argv)
 
     // malloc error using new.. try shared ptr
     // Create SLAM system. It initializes all system threads and gets ready to process frames.
-
-    if (orbslam3_viz_ == 1){
-        bool visualization = true;
-
-    }
-    else {
-        bool visualization = false;
-    }
-    ORB_SLAM3::System pSLAM(argv[1], argv[2], ORB_SLAM3::System::IMU_STEREO, visualization);
+    ORB_SLAM3::System pSLAM(argv[1], argv[2], ORB_SLAM3::System::IMU_STEREO);
 
     auto node = std::make_shared<StereoInertialNode>(&pSLAM, argv[2], argv[3], argv[4]);
     std::cout << "============================" << std::endl;
