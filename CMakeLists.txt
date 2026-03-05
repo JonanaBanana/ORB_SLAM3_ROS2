@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.22)
 project(orbslam3)
 
 # You should set the PYTHONPATH to your own python site-packages path
@@ -25,6 +25,9 @@ find_package(Eigen3 REQUIRED)
 # To help the search ORB_SLAM3_ROOT_DIR environment variable as the path to ORB_SLAM3 root folder
 #  e.g. `set( ORB_SLAM3_ROOT_DIR=~/ORB_SLAM3) `
 set(ORB_SLAM3_ROOT_DIR "/thirdparty/ORB_SLAM3")
+
+set(CMAKE_INSTALL_RPATH "${ORB_SLAM3_ROOT_DIR}/lib;${ORB_SLAM3_ROOT_DIR}/Thirdparty/DBoW2/lib;${ORB_SLAM3_ROOT_DIR}/Thirdparty/g2o/lib")
+set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
 
 # Find ORB_SLAM3
 find_path(ORB_SLAM3_INCLUDE_DIR NAMES System.h
@@ -60,6 +63,7 @@ set(ORB_SLAM3_INCLUDE_DIRS ${ORB_SLAM3_INCLUDE_DIR} ${DBoW2_INCLUDE_DIR})
 
 include_directories(
   include
+  ${ORB_SLAM3_ROOT_DIR}
   ${ORB_SLAM3_ROOT_DIR}/include
   ${ORB_SLAM3_ROOT_DIR}/include/CameraModels
   ${ORB_SLAM3_ROOT_DIR}/Thirdparty/Sophus
@@ -74,31 +78,31 @@ add_executable(mono
   src/monocular/mono.cpp
   src/monocular/monocular-slam-node.cpp
 )
-ament_target_dependencies(mono rclcpp sensor_msgs cv_bridge ORB_SLAM3 Eigen3 OpenCV)
+ament_target_dependencies(mono rclcpp sensor_msgs cv_bridge Eigen3 OpenCV)
+target_link_libraries(mono ${ORB_SLAM3_LIBRARIES})
 
 add_executable(rgbd
   src/rgbd/rgbd.cpp
   src/rgbd/rgbd-slam-node.cpp
 )
-ament_target_dependencies(rgbd rclcpp sensor_msgs cv_bridge message_filters ORB_SLAM3 Eigen3 OpenCV)
+ament_target_dependencies(rgbd rclcpp sensor_msgs cv_bridge message_filters Eigen3 OpenCV)
+target_link_libraries(rgbd ${ORB_SLAM3_LIBRARIES})
 
 add_executable(stereo
   src/stereo/stereo.cpp
   src/stereo/stereo-slam-node.cpp
 )
-ament_target_dependencies(stereo rclcpp sensor_msgs cv_bridge message_filters ORB_SLAM3 Eigen3 OpenCV)
+ament_target_dependencies(stereo rclcpp sensor_msgs cv_bridge message_filters Eigen3 OpenCV)
+target_link_libraries(stereo ${ORB_SLAM3_LIBRARIES})
 
 add_executable(stereo-inertial
   src/stereo-inertial/stereo-inertial.cpp
   src/stereo-inertial/stereo-inertial-node.cpp
 )
-ament_target_dependencies(stereo-inertial rclcpp sensor_msgs cv_bridge ORB_SLAM3 Eigen3 OpenCV)
+ament_target_dependencies(stereo-inertial rclcpp sensor_msgs cv_bridge Eigen3 OpenCV)
+target_link_libraries(stereo-inertial ${ORB_SLAM3_LIBRARIES})
+
 
 install(TARGETS mono rgbd stereo stereo-inertial DESTINATION lib/${PROJECT_NAME})
 
-# Install launch files.
-#install(DIRECTORY launch config vocabulary
-#  DESTINATION share/${PROJECT_NAME}/)
-
 ament_package()
-
