@@ -1,0 +1,96 @@
+%YAML:1.0
+
+#--------------------------------------------------------------------------------------------
+# System config
+#--------------------------------------------------------------------------------------------
+
+# When the variables are commented, the system doesn't load a previous session or not store the current one
+
+# If the LoadFile doesn't exist, the system give a message and create a new Atlas from scratch
+#System.LoadAtlasFromFile: "Session_MH01_MH02_MH03_Mono"
+
+# The store file is created from the current session, if a file with the same name exists it is deleted
+#System.SaveAtlasToFile: "Session_MH01_MH02_MH03_Mono"
+
+#--------------------------------------------------------------------------------------------
+# Camera Parameters. Adjust them!
+#--------------------------------------------------------------------------------------------
+Camera.type: "PinHole"
+
+# Camera calibration and distortion parameters (OpenCV) 
+Camera.fx: 1.2045173795381450e+03
+Camera.fy: 1.2054716926769793e+03
+Camera.cx: 9.3606290880125891e+02
+Camera.cy: 5.4838794753450145e+02
+
+Camera.k1: -3.4571111680382122e-01
+Camera.k2: 1.5981702959464913e-01
+Camera.p1: 6.3987465789665026e-04
+Camera.p2: -2.0356148208271343e-04
+Camera.k3: -4.1887188957886519e-02
+
+Camera.width: 1920
+Camera.height: 1080
+
+# Camera frames per second 
+Camera.fps: 30.0
+
+# Color order of the images (0: BGR, 1: RGB. It is ignored if images are grayscale)
+Camera.RGB: 1
+
+# Image scale, it changes the image size to be processed (<1.0: reduce, >1.0: increase)
+Camera.imageScale: 1.0
+
+# Transformation from camera to body-frame (imu) #MIGHT BE WRONG (ASSUMES 8 degree roll,
+#                                                             which could be inaccurate)
+Tbc: !!opencv-matrix
+   rows: 4
+   cols: 4
+   dt: f
+   data: [ 0.0016945,  0.9960535,  0.0887383,  0.11,
+          -0.9960535, -0.0061934,  0.0885381,  0.02,
+           0.0887383, -0.0885381,  0.9921122, -0.05,
+           0.0,        0.0,        0.0,        1.0]
+
+# IMU noise - MIGHT NEED TO BE TUNED FOR VOXL IMU, IF IT IS NOT PERFECTLY CALIBRATED
+IMU.NoiseGyro: 0.05 
+IMU.NoiseAcc: 0.2
+IMU.GyroWalk: 0.004 
+IMU.AccWalk: 0.01
+IMU.Frequency: 1000 #VOXL IMU has 1000 Hz sample rate
+
+#--------------------------------------------------------------------------------------------
+# ORB Parameters
+#--------------------------------------------------------------------------------------------
+
+# ORB Extractor: Number of features per image
+ORBextractor.nFeatures: 1000
+
+# ORB Extractor: Scale factor between levels in the scale pyramid 	
+ORBextractor.scaleFactor: 1.2
+
+# ORB Extractor: Number of levels in the scale pyramid	
+ORBextractor.nLevels: 8
+
+# ORB Extractor: Fast threshold
+# Image is divided in a grid. At each cell FAST are extracted imposing a minimum response.
+# Firstly we impose iniThFAST. If no corners are detected we impose a lower value minThFAST
+# You can lower these values if your images have low contrast			
+ORBextractor.iniThFAST: 20
+ORBextractor.minThFAST: 7
+
+#--------------------------------------------------------------------------------------------
+# Viewer Parameters
+#---------------------------------------------------------------------------------------------
+Viewer.KeyFrameSize: 0.05
+Viewer.KeyFrameLineWidth: 1
+Viewer.GraphLineWidth: 0.9
+Viewer.PointSize: 2
+Viewer.CameraSize: 0.08
+Viewer.CameraLineWidth: 3
+Viewer.ViewpointX: 0
+Viewer.ViewpointY: -0.7
+Viewer.ViewpointZ: -1.8
+Viewer.ViewpointF: 500
+Viewer.imageViewScale: 2
+
