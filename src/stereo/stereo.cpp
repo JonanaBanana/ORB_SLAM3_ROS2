@@ -23,15 +23,12 @@ int main(int argc, char **argv)
     }
 
     bool visualization = false;
-    if (orbslam3_viz_ == 0){
-        std::cout << "\nORBSLAM3_ROS2 VISUALIZATION OFF BY DEFAULT" << std::endl;
-    }else{
-        std::cout << "\nORBSLAM3_ROS2 VISUALIZATION: "<< orbslam3_viz_ << std::endl;
+    if (orbslam3_viz_ == 1){
         visualization = true;
-        
     }
 
     rclcpp::init(argc, argv);
+    std::cout << "\nORBSLAM3_ROS2 VISUALIZATION = "<< visualization << std::endl;
     ORB_SLAM3::System pSLAM(argv[1], argv[2], ORB_SLAM3::System::STEREO, visualization);
 
     auto node = std::make_shared<StereoSlamNode>(&pSLAM, argv[2], argv[3]);
