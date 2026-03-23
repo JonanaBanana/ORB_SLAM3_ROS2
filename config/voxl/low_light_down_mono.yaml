@@ -25,8 +25,8 @@ Camera.cy: 7.7974116060087226e+02
 
 Camera.k1: -2.2234349620539613e-02
 Camera.k2: -2.2453554589743501e-02
-Camera.p1: 2.1255530774027996e-02
-Camera.p2: -9.1324647773713026e-03
+Camera.k3: 2.1255530774027996e-02
+Camera.k4: -9.1324647773713026e-03
 
 Camera.width: 2704
 Camera.height: 1540
@@ -73,5 +73,5 @@ Viewer.ViewpointX: 0
 Viewer.ViewpointY: -0.7
 Viewer.ViewpointZ: -1.8
 Viewer.ViewpointF: 500
-Viewer.imageViewScale: 1
+Viewer.imageViewScale: 0.5
 

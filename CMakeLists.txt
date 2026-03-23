@@ -18,8 +18,10 @@ endif()
 
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(nav_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(cv_bridge REQUIRED)
+find_package(tf2_ros REQUIRED)
 find_package(message_filters REQUIRED)
 find_package(Sophus REQUIRED)
 find_package(Pangolin REQUIRED)
@@ -81,31 +83,45 @@ add_executable(mono
   src/monocular/mono.cpp
   src/monocular/monocular-slam-node.cpp
 )
-ament_target_dependencies(mono rclcpp sensor_msgs cv_bridge Eigen3 Pangolin OpenCV)
+ament_target_dependencies(mono rclcpp tf2_ros sensor_msgs nav_msgs cv_bridge Eigen3 Pangolin OpenCV)
 target_link_libraries(mono ${ORB_SLAM3_LIBRARIES})
 
 add_executable(rgbd
   src/rgbd/rgbd.cpp
   src/rgbd/rgbd-slam-node.cpp
 )
-ament_target_dependencies(rgbd rclcpp sensor_msgs cv_bridge message_filters Eigen3 Pangolin OpenCV)
+ament_target_dependencies(rgbd rclcpp tf2_ros sensor_msgs nav_msgs cv_bridge message_filters Eigen3 Pangolin OpenCV)
 target_link_libraries(rgbd ${ORB_SLAM3_LIBRARIES})
 
 add_executable(stereo
   src/stereo/stereo.cpp
   src/stereo/stereo-slam-node.cpp
 )
-ament_target_dependencies(stereo rclcpp sensor_msgs cv_bridge message_filters Eigen3 Pangolin OpenCV)
+ament_target_dependencies(stereo rclcpp tf2_ros sensor_msgs nav_msgs cv_bridge message_filters Eigen3 Pangolin OpenCV)
 target_link_libraries(stereo ${ORB_SLAM3_LIBRARIES})
 
 add_executable(stereo-inertial
   src/stereo-inertial/stereo-inertial.cpp
   src/stereo-inertial/stereo-inertial-node.cpp
 )
-ament_target_dependencies(stereo-inertial rclcpp sensor_msgs cv_bridge Eigen3 Pangolin OpenCV)
+ament_target_dependencies(stereo-inertial rclcpp tf2_ros sensor_msgs nav_msgs cv_bridge Eigen3 Pangolin OpenCV)
 target_link_libraries(stereo-inertial ${ORB_SLAM3_LIBRARIES})
 
 
 install(TARGETS mono rgbd stereo stereo-inertial DESTINATION lib/${PROJECT_NAME})
+
+install(DIRECTORY
+  launch
+  DESTINATION share/${PROJECT_NAME}/
+)
+
+install(
+  DIRECTORY vocabulary/
+  DESTINATION share/${PROJECT_NAME}/vocabulary
+)
+
+install(
+  DIRECTORY config/
+  DESTINATION share/${PROJECT_NAME}/config)
 
 ament_package()
