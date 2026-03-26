@@ -55,7 +55,7 @@ IMU.NoiseGyro: 0.05
 IMU.NoiseAcc: 0.2
 IMU.GyroWalk: 0.004 
 IMU.AccWalk: 0.01
-IMU.Frequency: 1000 #VOXL IMU has 1000 Hz sample rate
+IMU.Frequency: 200 #VOXL IMU has 500 Hz sample rate
 
 #--------------------------------------------------------------------------------------------
 # ORB Parameters

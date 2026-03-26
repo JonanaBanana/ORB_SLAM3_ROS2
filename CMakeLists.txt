@@ -86,6 +86,13 @@ add_executable(mono
 ament_target_dependencies(mono rclcpp tf2_ros sensor_msgs nav_msgs cv_bridge Eigen3 Pangolin OpenCV)
 target_link_libraries(mono ${ORB_SLAM3_LIBRARIES})
 
+add_executable(mono-inertial
+  src/monocular-inertial/mono-inertial.cpp
+  src/monocular-inertial/mono-inertial-slam-node.cpp
+)
+ament_target_dependencies(mono-inertial rclcpp tf2_ros sensor_msgs nav_msgs cv_bridge Eigen3 Pangolin OpenCV)
+target_link_libraries(mono-inertial ${ORB_SLAM3_LIBRARIES})
+
 add_executable(rgbd
   src/rgbd/rgbd.cpp
   src/rgbd/rgbd-slam-node.cpp
@@ -108,7 +115,7 @@ ament_target_dependencies(stereo-inertial rclcpp tf2_ros sensor_msgs nav_msgs cv
 target_link_libraries(stereo-inertial ${ORB_SLAM3_LIBRARIES})
 
 
-install(TARGETS mono rgbd stereo stereo-inertial DESTINATION lib/${PROJECT_NAME})
+install(TARGETS mono mono-inertial rgbd stereo stereo-inertial DESTINATION lib/${PROJECT_NAME})
 
 install(DIRECTORY
   launch
